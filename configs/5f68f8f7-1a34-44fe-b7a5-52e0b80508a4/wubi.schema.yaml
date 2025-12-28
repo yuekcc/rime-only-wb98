@@ -20,34 +20,34 @@ schema:
 switches:
   - name: show_es
     reset: 0
-    states: [ 💀, 😄 ]
+    states: [💀, 😄]
   - name: ascii_mode
     reset: 1
-    states: [ 中,英 ]    
+    states: [中, 英]
   - name: zh_trad
     reset: 0
-    states: [ 简,繁 ]
+    states: [简, 繁]
   - name: new_spelling
     reset: 1
-    states: [ 隐,显 ]
+    states: [隐, 显]
   - name: rvl_zhuyin
     reset: 1
-    states: [ 形,拼 ]
+    states: [形, 拼]
   - name: GB2312
     reset: 0
-    states: [ 扩,常 ]
+    states: [扩, 常]
   - name: new_hide_pinyin
     reset: 1
-    states: [ 音,哑 ]
+    states: [音, 哑]
   - name: single_char
     reset: 0
-    states: [ 词,单 ]
+    states: [词, 单]
   - name: ascii_punct
     reset: 0
-    states: [ 。，,．， ]
+    states: [。，, ．，]
   - name: full_shape
     reset: 0
-    states: [ 半,全 ]
+    states: [半, 全]
 engine:
   filters:
     - lua_filter@new_spelling@spelling
@@ -98,7 +98,7 @@ speller:
   alphabet: ;zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA`
   initials: ;zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA`
   auto_select_pattern: ^;.$|^\w{4}$
-  algebra:  # 万能z键拼写处理，z符号匹配任意字符
+  algebra: # 万能z键拼写处理，z符号匹配任意字符
     - derive/^(...).$/$1z/
     - derive/^(..).(.*)$/$1z$2/
     - derive/^(.).(.*)$/$1z$2/
@@ -108,9 +108,9 @@ translator:
   db_class: tabledb
   initial_quality: 100000
   enable_charset_filter: false
-  enable_sentence: false  # 开启句子输入模式
-  enable_user_dict: false  # 开启用户词典
-  enable_encoder: false
+  enable_sentence: true # 开启句子输入模式
+  enable_user_dict: true # 开启用户词典
+  enable_encoder: true
   encode_commit_history: false
   max_phrase_length: 4
   enable_completion: true
@@ -227,7 +227,7 @@ recognizer:
     uppercase: "[A-Z][-_+.'0-9A-Za-z]*$"
     url: "^(www[.]|https?:|ftp[.:]|mailto:|file:).*$|^[a-z]+[.].+$"
     zhuyin: "~[a-y]*?$"
-    helper: '^help$'
+    helper: "^help$"
     expression: "^=.*$"
 history:
   input: z
@@ -235,44 +235,44 @@ history:
   initial_quality: 1
 key_binder:
   bindings:
-    - {send: Up, accept: Left, when: has_menu}
-    - {send: Down, accept: Right, when: has_menu}
-    - {send: Page_Up, accept: minus, when: has_menu}
-    - {send: Page_Down, accept: equal, when: has_menu}
-    - {send: Escape, accept: space, when: composing}
-    - {send: space, accept: space, when: has_menu}
-    - {toggle: zh_trad, accept: "Control+Shift+4", when: always}
-    - {toggle: zh_trad, accept: "Control+Shift+dollar", when: always}
-    - {toggle: zh_trad, accept: "Control+Shift+F", when: always}
-    - {toggle: new_spelling, accept: "Control+Shift+H", when: always}
-    - {toggle: new_hide_pinyin, accept: "Control+Shift+J", when: always}
-    - {toggle: single_char, accept: "Control+Shift+D", when: always}
-    - {toggle: GB2312, accept: "Control+Shift+U", when: always}
+    - { send: Up, accept: Left, when: has_menu }
+    - { send: Down, accept: Right, when: has_menu }
+    - { send: Page_Up, accept: minus, when: has_menu }
+    - { send: Page_Down, accept: equal, when: has_menu }
+    - { send: Escape, accept: space, when: composing }
+    - { send: space, accept: space, when: has_menu }
+    - { toggle: zh_trad, accept: "Control+Shift+4", when: always }
+    - { toggle: zh_trad, accept: "Control+Shift+dollar", when: always }
+    - { toggle: zh_trad, accept: "Control+Shift+F", when: always }
+    - { toggle: new_spelling, accept: "Control+Shift+H", when: always }
+    - { toggle: new_hide_pinyin, accept: "Control+Shift+J", when: always }
+    - { toggle: single_char, accept: "Control+Shift+D", when: always }
+    - { toggle: GB2312, accept: "Control+Shift+U", when: always }
     # 回车清空编码
     # - {accept: Return, send: Escape, when: composing}
     # - {accept: Return, send: Escape, when: has_menu}
     #
-    - {accept: semicolon, send: 2, when: has_menu}
-    - {accept: apostrophe, send: 3, when: has_menu}
+    - { accept: semicolon, send: 2, when: has_menu }
+    - { accept: apostrophe, send: 3, when: has_menu }
     #将小键盘 6~9 .映射到主键盘，数字金额大写的 Lua 如 R1234.5678 可使用小键盘输入
-    - {accept: KP_0, send: 0, when: composing}
-    - {accept: KP_1, send: 1, when: composing}
-    - {accept: KP_2, send: 2, when: composing}
-    - {accept: KP_3, send: 3, when: composing}
-    - {accept: KP_4, send: 4, when: composing}
-    - {accept: KP_5, send: 5, when: composing}
-    - {accept: KP_6, send: 6, when: composing}
-    - {accept: KP_7, send: 7, when: composing}
-    - {accept: KP_8, send: 8, when: composing}
-    - {accept: KP_9, send: 9, when: composing}
-    - {accept: KP_Decimal, send: period, when: composing}
-    - {accept: KP_Add, send: plus, when: composing}
-    - {accept: KP_Subtract, send: minus, when: composing}
-    - {accept: KP_Multiply, send:  asterisk, when: composing}
-    - {accept: KP_Divide, send: slash, when: composing}
+    - { accept: KP_0, send: 0, when: composing }
+    - { accept: KP_1, send: 1, when: composing }
+    - { accept: KP_2, send: 2, when: composing }
+    - { accept: KP_3, send: 3, when: composing }
+    - { accept: KP_4, send: 4, when: composing }
+    - { accept: KP_5, send: 5, when: composing }
+    - { accept: KP_6, send: 6, when: composing }
+    - { accept: KP_7, send: 7, when: composing }
+    - { accept: KP_8, send: 8, when: composing }
+    - { accept: KP_9, send: 9, when: composing }
+    - { accept: KP_Decimal, send: period, when: composing }
+    - { accept: KP_Add, send: plus, when: composing }
+    - { accept: KP_Subtract, send: minus, when: composing }
+    - { accept: KP_Multiply, send: asterisk, when: composing }
+    - { accept: KP_Divide, send: slash, when: composing }
     #
-    - { when: always, accept: Shift+space, toggle: full_shape }  # shift + space 全角半角切换
-    - { when: always, accept: Control+period, toggle: ascii_punct }  # ctrl + . 中英文标点切换
+    - { when: always, accept: Control+Alt+space, toggle: full_shape } # shift + space 全角半角切换
+    - { when: always, accept: Control+Alt+period, toggle: ascii_punct } # ctrl + . 中英文标点切换
 punctuator:
   import_preset: symbols
 

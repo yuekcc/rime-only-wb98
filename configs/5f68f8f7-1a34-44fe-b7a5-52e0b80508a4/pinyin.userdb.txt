@@ -4,9 +4,9 @@
 #@/rime_version	1.11.2
 #@/tick	10
 #@/user_id	5f68f8f7-1a34-44fe-b7a5-52e0b80508a4
-de 	的	c=1 d=1.09851 t=5
-de dao 	得到	c=1 d=1 t=1
-hao 	好	c=1 d=1 t=9
-pian wei qu 	片尾曲	c=0 d=0.1 t=2
-pian wei qu de 	片尾曲的	c=1 d=1 t=3
+de 	的	c=1 d=1.07139 t=10
+de dao 	得到	c=1 d=0.955997 t=10
+hao 	好	c=1 d=0.995012 t=10
+pian wei qu 	片尾曲	c=0 d=0.0960789 t=10
+pian wei qu de 	片尾曲的	c=1 d=0.965605 t=10
 qu 	去	c=6 d=5.8866 t=10
