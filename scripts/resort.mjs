@@ -22,8 +22,8 @@ class Word {
 
 function lookupWeight(keyword) {
     try {
-        const query = db.query(`select id, content, length, weight, pinyin, source from word where content = $content`).as(Word);
-        return query.get({ $content: keyword })
+        const query = db.query(`select id, content, length, weight, pinyin, source from word where content = $content order by weight desc`).as(Word);
+        return query.all({ $content: keyword }).at(0)
     } catch (err) {
         console.warn('query keyword error, for', err.message, ', keyword is', keyword)
         return null;
