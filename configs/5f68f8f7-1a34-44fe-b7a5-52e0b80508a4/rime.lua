@@ -491,9 +491,9 @@ function date_translator(input, seg)
 	local keyword = rv_var["date_var"]
 	if (input == keyword) then
 		local dates = {
-			os.date("%Y年%m月%d日")
-			,os.date("%Y-%m-%d")
+			os.date("%Y-%m-%d")
 			,os.date("%Y%m%d")
+			,os.date("%Y年%m月%d日")
 			-- ,os.date("%Y.%m.%d")
 			-- ,os.date("%Y%m%d")
 			-- ,os.date("%Y-%m-%d 第%W周")

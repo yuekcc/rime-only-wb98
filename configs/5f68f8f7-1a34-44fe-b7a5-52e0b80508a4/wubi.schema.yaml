@@ -76,7 +76,6 @@ engine:
     - ascii_segmentor         # ASCII 分段
     - matcher                 # 匹配器
     - "affix_segmentor@mkst"  # 自造词分段
-    - "affix_segmentor@rvlk1"
     - abc_segmentor           # ABC 分段
     - punct_segmentor         # 标点分段
     - fallback_segmentor      # 回退分段
@@ -85,14 +84,10 @@ engine:
   translators:
     - punct_translator        # 标点转换
     - reverse_lookup_translator
-    - "table_translator@rvlk1"
     - table_translator        # 主翻译器
-    - "table_translator@fixed"      # 固定词库
     - "table_translator@mkst"       # 自造词
     - "history_translator@history"  # 历史记录
-    - "lua_translator@helper"       # 帮助功能
     - "lua_translator@time_date"    # 时间日期
-    - "lua_translator@calculator"   # 计算器
 
 # 拼写器配置
 speller:
@@ -126,21 +121,6 @@ translator:
   #   - "xlit|ABCDEFGHIJKLMNOPQRSTUVWXY|工子又大月土王目水日口田山已火之金白木禾立女人幺言|"
   disable_user_dict_for_patterns:
     - "^z.*$"                 # 禁用Z键的用户词典
-
-# 固定词库配置
-fixed:
-  db_class: tabledb
-  dictionary: wubi.extended
-  disable_user_dict_for_patterns:
-    - "^z.*$"
-  enable_charset_filter: false
-  enable_completion: false    # 禁用补全
-  enable_encoder: true
-  enable_sentence: false      # 禁用句子模式
-  enable_user_dict: true
-  encode_commit_history: false
-  initial_quality: 1000       # 较低优先级
-  max_phrase_length: 4
 
 # 自造词配置
 mkst:
@@ -178,28 +158,6 @@ reverse_lookup:
     - "xform/([nl])v/$1ü/"
     - "xform/([nl])ue/$1üe/"
     - "xform/([jqxy])v/$1u/"
-  tag: rvlk2
-  tips: "〈拼音反查〉"
-
-rvlk1:
-  db_class: tabledb
-  dictionary: pinyin
-  disable_user_dict_for_patterns:
-    - "^z.*$"
-  enable_charset_filter: false
-  enable_completion: false
-  enable_encoder: false
-  enable_sentence: false
-  enable_user_dict: false
-  encode_commit_history: false
-  extra_tags:
-    - rvlk2
-  initial_quality: 100000
-  max_phrase_length: 4
-  preedit_format:
-    - "xform/([nl])v/$1ü/"
-    - "xform/([nl])ue/$1üe/"
-    - "xform/([jqxy])v/$1u/"
   prefix: z
   tag: rvlk1
   tips: "〈拼音反查〉"
@@ -222,7 +180,6 @@ recognizer:
     mkst: "^[a-y]*`[a-y`]*$"  # 自造词模式
     punct: "^/([0-9]0?|[A-Za-z]+)$"  # 标点模式
     rvlk1: "^z[a-z]*$"         # Z键拼音反查模式
-    rvlk2: "^z[a-z]*$"         # Z键拼音反查模式
     uppercase: "[A-Z][-_+.'0-9A-Za-z]*$"  # 大写字母
     url: "^(www[.]|https?:|ftp[.:]|mailto:|file:).*$|^[a-z]+[.].+$"  # URL识别
     helper: "^help$"          # 帮助命令
