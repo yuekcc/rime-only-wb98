@@ -25,4 +25,4 @@ $ find
 ./wubi.dict.yaml
 ```
 
-4. `<repo-root>/scripts` 目录执行 run.mjs
+4. 在 `<repo-root>/scripts` 目录执行 `rm rime-lmdg-weights.db && bun run.mjs`

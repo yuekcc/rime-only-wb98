@@ -5,9 +5,36 @@ import path from 'node:path'
 
 // ==================== 配置 ====================
 const DB_PATH = 'rime-lmdg-weights.db'
-const OUTPUT_FILE = 'out.yaml'
+const OUTPUT_FILE = 'out.dict.yaml'
 const DICT_FILES = ['dicts/zi.dict.yaml', 'dicts/jichu.dict.yaml']
 const SOURCE_DICT = 'wubi.dict.yaml'
+
+// 模板内容
+const WUBI_DICT_YAML_HEAD = `# Rime dictionary
+# encoding: utf-8
+# title: 空山词库
+# auther: 空山明月 x RIME-LMDG
+# date: {{date}}
+---
+name: wubi
+version: "2.1"
+sort: by_weight
+columns:
+  - text
+  - code
+  - weight
+  - stem
+encoder:
+  exclude_patterns:
+    - '^z.*$'
+  rules:
+    - length_equal: 2
+      formula: "AaAbBaBb"
+    - length_equal: 3
+      formula: "AaBaCaCb"
+    - length_in_range: [4, 32]
+      formula: "AaBaCaZa"
+...`;
 
 // ==================== 统计数据 ====================
 const stats = {
@@ -197,6 +224,10 @@ function processAndResortDict(db, sourceDict, outputFile) {
         }
     }).then(() => {
         const stream = fs.createWriteStream(outputFile)
+
+        const head = WUBI_DICT_YAML_HEAD.replace(`{{date}}`, new Date().toJSON().substring(0, '2026-01-01'.length)).trim() + '\n';
+        stream.write(head, 'utf-8')
+
         for (const line of cache) {
             stream.write(line, 'utf-8')
         }
