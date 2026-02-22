@@ -1,137 +1,148 @@
-# Rime settings
+# RIME 输入法配置文件 - 纯五笔方案
 # encoding: utf-8
-# by: 空山明月
-# date: 2024-05-27
+# 作者: 空山明月
+# 日期: 2024-05-27
 
 schema:
-  schema_id: wubi
-  name: "纯五笔"
-  version: "2.1"
-  icon: icons/CN.ico
-  ascii_icon: icons/EN.ico
-  full_icon: icons/full.ico
-  half_icon: icons/half.ico
+  schema_id: wubi              # 方案标识符，唯一 ID
+  name: "纯五笔"               # 方案显示名称
+  version: "2.1"               # 版本号
+  icon: icons/CN.ico           # 中文状态图标
+  ascii_icon: icons/EN.ico     # 英文状态图标
+  full_icon: icons/full.ico    # 全角状态图标
+  half_icon: icons/half.ico    # 半角状态图标
   author:
-    - 发明人 王永民
+    - 发明人 王永民             # 五笔输入法发明人
   description: |
-    敲 z 键进入拼音反查
+    敲 z 键进入拼音反查          # 方案描述，支持多行
   dependencies:
-    - wb_spelling
-switches:
-  - name: show_es
-    reset: 0
-    states: [💀, 😄]
-  - name: ascii_mode
-    reset: 1
-    states: [中, 英]
-  - name: zh_trad
-    reset: 0
-    states: [简, 繁]
-  - name: new_spelling
-    reset: 1
-    states: [隐, 显]
-  - name: rvl_zhuyin
-    reset: 1
-    states: [形, 拼]
-  - name: GB2312
-    reset: 0
-    states: [扩, 常]
-  - name: new_hide_pinyin
-    reset: 1
-    states: [音, 哑]
-  - name: single_char
-    reset: 0
-    states: [词, 单]
-  - name: ascii_punct
-    reset: 0
-    states: [。，, ．，]
-  - name: full_shape
-    reset: 0
-    states: [半, 全]
-engine:
-  filters:
-    - lua_filter@new_spelling@spelling
-    - simplifier
-    - simplifier@es_conversion
-    - lua_filter@single_char
-    - reverse_lookup_filter@ci_reverse_lookup
-    - uniquifier
+    - wb_spelling               # 依赖的拼写检查模块
 
+# 输入法切换开关配置
+switches:
+  - name: show_es              # 显示/隐藏表情符号
+    reset: 0                   # 重置值 (0=隐藏, 1=显示)
+    states: [💀, 😄]            # 状态图标
+  - name: ascii_mode           # 中英文输入模式切换
+    reset: 1                   # 默认英文模式
+    states: [中, 英]            # 状态显示
+  - name: zh_trad              # 简繁体转换
+    reset: 0                   # 默认简体
+    states: [简, 繁]
+  - name: new_spelling         # 新拼写检查
+    reset: 1                   # 默认开启
+    states: [隐, 显]
+  - name: GB2312               # 字符集限制
+    reset: 0                   # 默认扩展字符集
+    states: [扩, 常]            # 扩展 vs 常用
+  - name: new_hide_pinyin      # 隐藏拼音提示
+    reset: 1                   # 默认显示拼音
+    states: [音, 哑]
+  - name: single_char          # 单字输入模式
+    reset: 0                   # 默认词组模式
+    states: [词, 单]
+  - name: ascii_punct          # 中英文标点切换
+    reset: 0                   # 默认中文标点
+    states: [。，, ．，]        # 中文 vs 英文标点
+  - name: full_shape           # 全角/半角切换
+    reset: 0                   # 默认半角
+    states: [半, 全]
+
+# 输入引擎核心配置
+engine:
+  # 过滤器：对候选词进行处理
+  filters:
+    - lua_filter@new_spelling@spelling    # Lua 拼写检查
+    - simplifier                           # 简繁体转换
+    - simplifier@es_conversion            # Emoji 转换
+    - lua_filter@single_char              # 单字模式过滤
+    - uniquifier                          # 去重
+
+  # 处理器：处理键盘输入
   processors:
-    - ascii_composer
-    - lua_processor@submit_text_processor
-    - lua_processor@switch_processor
-    - recognizer
-    - key_binder
-    - speller
-    - punctuator
-    - selector
-    - navigator
-    - express_editor
+    - ascii_composer          # ASCII 组合器
+    - lua_processor@submit_text_processor  # 提交文本处理
+    - lua_processor@switch_processor       # 开关处理
+    - recognizer              # 识别器
+    - key_binder              # 按键绑定
+    - speller                 # 拼写器
+    - punctuator              # 标点器
+    - selector                # 选择器
+    - navigator               # 导航器
+    - express_editor          # 快速编辑器
+
+  # 分段器：将输入分段处理
   segmentors:
-    - ascii_segmentor
-    - matcher
-    - "affix_segmentor@mkst"
-    - "affix_segmentor@rvl_zhuyin"
+    - ascii_segmentor         # ASCII 分段
+    - matcher                 # 匹配器
+    - "affix_segmentor@mkst"  # 自造词分段
     - "affix_segmentor@rvlk1"
-    - abc_segmentor
-    - punct_segmentor
-    - fallback_segmentor
+    - abc_segmentor           # ABC 分段
+    - punct_segmentor         # 标点分段
+    - fallback_segmentor      # 回退分段
+
+  # 转换器：生成候选词
   translators:
-    - punct_translator
+    - punct_translator        # 标点转换
     - reverse_lookup_translator
     - "table_translator@rvlk1"
-    - table_translator
-    - "table_translator@fixed"
-    - "table_translator@mkst"
-    - "table_translator@rvl_zhuyin"
-    - "history_translator@history"
-    - "lua_translator@helper"
-    - "lua_translator@time_date"
-    - "lua_translator@calculator"
+    - table_translator        # 主翻译器
+    - "table_translator@fixed"      # 固定词库
+    - "table_translator@mkst"       # 自造词
+    - "history_translator@history"  # 历史记录
+    - "lua_translator@helper"       # 帮助功能
+    - "lua_translator@time_date"    # 时间日期
+    - "lua_translator@calculator"   # 计算器
 
+# 拼写器配置
 speller:
-  auto_select: false
-  auto_clear: max_length
-  delimiter: "`"
-  max_code_length: 4
-  alphabet: ;zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA`
-  initials: ;zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA`
-  auto_select_pattern: ^;.$|^\w{4}$
+  auto_select: false         # 是否自动选择
+  auto_clear: max_length     # 自动清除编码
+  delimiter: "`"             # 分隔符
+  max_code_length: 4         # 最大编码长度 (五笔)
+  alphabet: ;zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA`  # 字母表
+  initials: ;zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA`   # 首字母
+  auto_select_pattern: ^;.$|^\w{4}$  # 自动选择模式
   algebra: # 万能z键拼写处理，z符号匹配任意字符
-    - derive/^(...).$/$1z/
-    - derive/^(..).(.*)$/$1z$2/
-    - derive/^(.).(.*)$/$1z$2/
+    - derive/^(...).$/$1z/           # 三码后z匹配一码
+    - derive/^(..).(.*)$/$1z$2/      # 两码后z匹配剩余
+    - derive/^(.).(.*)$/$1z$2/       # 一码后z匹配剩余
     # - derive/^.(.*)$/z$1/  # 开启本行将与z键重复上屏冲突
+
+# 主翻译器配置
 translator:
-  dictionary: wubi.extended
-  db_class: tabledb
-  initial_quality: 100000
-  enable_charset_filter: false
-  enable_sentence: true # 开启句子输入模式
-  enable_user_dict: true # 开启用户词典
-  enable_encoder: true
-  encode_commit_history: false
-  max_phrase_length: 4
-  enable_completion: true
+  dictionary: wubi.extended    # 词典文件
+  db_class: tabledb           # 数据库类型
+  initial_quality: 100000     # 初始质量分数
+  enable_charset_filter: false # 禁用字符集过滤
+  enable_sentence: true       # 开启句子输入模式
+  enable_user_dict: true      # 开启用户词典
+  enable_encoder: true        # 开启编码
+  encode_commit_history: false # 不编码提交历史
+  max_phrase_length: 4        # 最大词组长度
+  enable_completion: true     # 启用补全
   # preedit_format:
   #   - 'xform/^([a-z]*)$/$1\t〈\U$1\E〉/'  # 注释掉本行将只显示键名提示而不显示英文编码提示
   #   - "xlit|ABCDEFGHIJKLMNOPQRSTUVWXY|工子又大月土王目水日口田山已火之金白木禾立女人幺言|"
   disable_user_dict_for_patterns:
-    - "^z.*$"
+    - "^z.*$"                 # 禁用Z键的用户词典
+
+# 固定词库配置
 fixed:
   db_class: tabledb
   dictionary: wubi.extended
   disable_user_dict_for_patterns:
     - "^z.*$"
   enable_charset_filter: false
-  enable_completion: false
+  enable_completion: false    # 禁用补全
   enable_encoder: true
-  enable_sentence: false
+  enable_sentence: false      # 禁用句子模式
   enable_user_dict: true
   encode_commit_history: false
-  initial_quality: 1000
+  initial_quality: 1000       # 较低优先级
   max_phrase_length: 4
+
+# 自造词配置
 mkst:
   db_class: tabledb
   dictionary: wubi.extended
@@ -141,29 +152,15 @@ mkst:
   enable_completion: false
   enable_encoder: false
   enable_sentence: true
-  enable_user_dict: false
+  enable_user_dict: false     # 禁用用户词典
   encode_commit_history: false
-  initial_quality: 10
+  initial_quality: 10         # 更低优先级
   max_phrase_length: 4
-  prefix: "`"
+  prefix: "`"                 # ` 前缀触发
   tag: mkst
-  tips: "〈自造词〉"
-rvl_zhuyin:
-  db_class: tabledb
-  dictionary: wubi.extended
-  disable_user_dict_for_patterns:
-    - "^z.*$"
-  enable_charset_filter: false
-  enable_completion: false
-  enable_encoder: false
-  enable_sentence: true
-  enable_user_dict: false
-  encode_commit_history: false
-  initial_quality: 10
-  max_phrase_length: 4
-  prefix: "~"
-  tag: zhuyin
-  tips: "〈以形查音〉"
+  tips: "〈自造词〉"          # 提示文字
+
+# 拼音反查配置 (Z键触发)
 reverse_lookup:
   db_class: tabledb
   dictionary: pinyin
@@ -183,6 +180,7 @@ reverse_lookup:
     - "xform/([jqxy])v/$1u/"
   tag: rvlk2
   tips: "〈拼音反查〉"
+
 rvlk1:
   db_class: tabledb
   dictionary: pinyin
@@ -205,56 +203,62 @@ rvlk1:
   prefix: z
   tag: rvlk1
   tips: "〈拼音反查〉"
-ci_reverse_lookup:
-  dictionary: wubi.extended
-  tips: "〈五笔滤镜〉"
-  tags:
-    - rvlk2
+
+# 简繁体转换配置
 simplifier:
-  opencc_config: s2t.json
-  option_name: zh_trad
+  opencc_config: s2t.json     # OpenCC 配置文件
+  option_name: zh_trad        # 对应的开关名称
+
+# Lua 反向数据库配置
 lua_reverse_db:
   spelling: wb_spelling
   code: wb_spelling
+
+# 识别器配置
 recognizer:
-  import_preset: default
+  import_preset: default      # 导入默认配置
   patterns:
-    email: "^[A-Za-z][-_.0-9A-Za-z]*@.*$"
-    mkst: "^[a-y]*`[a-y`]*$"
-    punct: "^/([0-9]0?|[A-Za-z]+)$"
-    rvlk1: "^z[a-z]*$"
-    rvlk2: "^z[a-z]*$"
-    uppercase: "[A-Z][-_+.'0-9A-Za-z]*$"
-    url: "^(www[.]|https?:|ftp[.:]|mailto:|file:).*$|^[a-z]+[.].+$"
-    zhuyin: "~[a-y]*?$"
-    helper: "^help$"
-    expression: "^=.*$"
+    email: "^[A-Za-z][-_.0-9A-Za-z]*@.*$"  # 邮箱识别
+    mkst: "^[a-y]*`[a-y`]*$"  # 自造词模式
+    punct: "^/([0-9]0?|[A-Za-z]+)$"  # 标点模式
+    rvlk1: "^z[a-z]*$"         # Z键拼音反查模式
+    rvlk2: "^z[a-z]*$"         # Z键拼音反查模式
+    uppercase: "[A-Z][-_+.'0-9A-Za-z]*$"  # 大写字母
+    url: "^(www[.]|https?:|ftp[.:]|mailto:|file:).*$|^[a-z]+[.].+$"  # URL识别
+    helper: "^help$"          # 帮助命令
+    expression: "^=.*$"       # 表达式模式
+
+# 历史记录配置
 history:
-  input: z
-  size: 1
-  initial_quality: 1
+  input: z                    # 输入键
+  size: 1                     # 历史大小
+  initial_quality: 1          # 初始质量
+
+# 按键绑定配置
 key_binder:
   bindings:
-    - { send: Up, accept: Left, when: has_menu }
-    - { send: Down, accept: Right, when: has_menu }
-    - { send: Page_Up, accept: minus, when: has_menu }
-    - { send: Page_Down, accept: equal, when: has_menu }
-    - { send: Escape, accept: space, when: composing }
-    - { send: space, accept: space, when: has_menu }
-    - { toggle: zh_trad, accept: "Control+Shift+4", when: always }
-    - { toggle: zh_trad, accept: "Control+Shift+dollar", when: always }
-    - { toggle: zh_trad, accept: "Control+Shift+F", when: always }
-    - { toggle: new_spelling, accept: "Control+Shift+H", when: always }
-    - { toggle: new_hide_pinyin, accept: "Control+Shift+J", when: always }
-    - { toggle: single_char, accept: "Control+Shift+D", when: always }
-    - { toggle: GB2312, accept: "Control+Shift+U", when: always }
-    # 回车清空编码
-    # - {accept: Return, send: Escape, when: composing}
-    # - {accept: Return, send: Escape, when: has_menu}
-    #
-    - { accept: semicolon, send: 2, when: has_menu }
-    - { accept: apostrophe, send: 3, when: has_menu }
-    #将小键盘 6~9 .映射到主键盘，数字金额大写的 Lua 如 R1234.5678 可使用小键盘输入
+    # 菜单导航
+    - { send: Up, accept: Left, when: has_menu }      # 左箭头上翻页
+    - { send: Down, accept: Right, when: has_menu }   # 右箭头下翻页
+    - { send: Page_Up, accept: minus, when: has_menu } # 减号上翻页
+    - { send: Page_Down, accept: equal, when: has_menu } # 等号下翻页
+    - { send: Escape, accept: space, when: composing } # ESC清编码
+    - { send: space, accept: space, when: has_menu }  # 空格确认
+
+    # 功能切换
+    # - { toggle: zh_trad, accept: "Control+Shift+4", when: always }      # Ctrl+Shift+4 简繁体
+    # - { toggle: zh_trad, accept: "Control+Shift+dollar", when: always }
+    # - { toggle: zh_trad, accept: "Control+Shift+F", when: always }
+    # - { toggle: new_spelling, accept: "Control+Shift+H", when: always } # Ctrl+Shift+H 拼写检查
+    # - { toggle: new_hide_pinyin, accept: "Control+Shift+J", when: always } # Ctrl+Shift+J 拼音提示
+    # - { toggle: single_char, accept: "Control+Shift+D", when: always }  # Ctrl+Shift+D 单字模式
+    # - { toggle: GB2312, accept: "Control+Shift+U", when: always }      # Ctrl+Shift+U 字符集
+
+    # 候选词选择
+    - { accept: semicolon, send: 2, when: has_menu }    # 分号选2
+    - { accept: apostrophe, send: 3, when: has_menu }   # 引号选3
+
+    # 小键盘映射 (用于数字大写输入)
     - { accept: KP_0, send: 0, when: composing }
     - { accept: KP_1, send: 1, when: composing }
     - { accept: KP_2, send: 2, when: composing }
@@ -270,14 +274,19 @@ key_binder:
     - { accept: KP_Subtract, send: minus, when: composing }
     - { accept: KP_Multiply, send: asterisk, when: composing }
     - { accept: KP_Divide, send: slash, when: composing }
-    #
-    - { when: always, accept: Control+Alt+space, toggle: full_shape } # shift + space 全角半角切换
-    - { when: always, accept: Control+Alt+period, toggle: ascii_punct } # ctrl + . 中英文标点切换
-punctuator:
-  import_preset: symbols
 
+    # # 全角半角切换
+    # - { when: always, accept: Control+Alt+space, toggle: full_shape } # Ctrl+Alt+空格
+    # # 中英文标点切换
+    # - { when: always, accept: Control+Alt+period, toggle: ascii_punct } # Ctrl+Alt+.
+
+# 标点配置
+punctuator:
+  import_preset: symbols       # 导入符号预设
+
+# Emoji 转换配置
 es_conversion:
-  opencc_config: es.json
-  option_name: show_es
-  tips: none # all/none, "〈Emoji〉"
-  inherit_comment: false # 继承注释
+  opencc_config: es.json       # OpenCC 配置文件
+  option_name: show_es         # 对应开关
+  tips: none # all/none, "〈Emoji〉"  # 提示设置
+  inherit_comment: false       # 不继承注释
