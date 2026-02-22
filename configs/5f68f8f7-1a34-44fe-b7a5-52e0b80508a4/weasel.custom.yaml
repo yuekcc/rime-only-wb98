@@ -1,7 +1,9 @@
-# weasel custom settings
-# encoding: utf-8
-# date: 2024-05-27
-
+customization:
+  distribution_code_name: Weasel
+  distribution_version: 0.17.4
+  generator: "Weasel::UIStyleSettings"
+  modified_time: "Sun Feb 22 22:26:37 2026"
+  rime_version: 1.13.1
 patch:
-  "style/color_scheme": poetry_ocean                     # 日间主题
-  "style/color_scheme_dark": dark_ocean                  # 夜间主题
+  "style/color_scheme": poetry_ocean
+  "style/color_scheme_dark": dark_ocean
