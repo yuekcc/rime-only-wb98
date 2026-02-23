@@ -1,0 +1,95 @@
+# Rime settings
+# encoding: utf-8
+
+schema:
+  schema_id: pinyin
+  name: "拼音"
+  version: "2026.1"
+  icon: icons/CN.ico
+  ascii_icon: icons/EN.ico
+  full_icon: icons/full.ico
+  half_icon: icons/half.ico
+  author:
+    - 佚名
+  description: |
+    源自 Android 拼音
+  dependencies:
+  # 没有依赖
+
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: [ 中, 英 ]
+  - name: zh_trad
+    reset: 0
+    states: [ 简体, 繁体 ]
+  - name: full_shape
+    reset: 0
+    states: [ 半角, 全角 ]
+  - name: extended_charset
+    reset: 1
+    states: [ 常用, 扩展 ]
+  - name: ascii_punct
+    reset: 0
+    states: [ 。，, ．， ]
+
+engine:
+  processors:
+    - ascii_composer
+    - recognizer
+    - key_binder
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - punct_translator
+    - script_translator
+    - reverse_lookup_translator
+    - lua_translator@*date_time_translator
+  filters:
+    - simplifier
+    - uniquifier
+
+speller:
+  alphabet: zyxwvutsrqponmlkjihgfedcba
+  delimiter: " '"
+  algebra:
+    - abbrev/^([a-z]).+$/$1/
+    - abbrev/^([zcs]h).+$/$1/
+    - derive/^([nl])ue$/$1ve/
+    - derive/^([jqxy])u/$1v/
+    - derive/un$/uen/
+    - derive/ui$/uei/
+    - derive/iu$/iou/
+    - derive/([aeiou])ng$/$1gn/
+    - derive/([dtngkhrzcs])o(u|ng)$/$1o/
+    - derive/ong$/on/
+    - derive/ao$/oa/
+    - derive/([iu])a(o|ng?)$/a$1$2/
+
+translator:
+  dictionary: pinyin
+  preedit_format:
+    - xform/([nl])v/$1ü/
+    - xform/([nl])ue/$1üe/
+    - xform/([jqxy])v/$1u/
+
+punctuator:
+  import_preset: symbols
+
+key_binder:
+  import_preset: default
+
+recognizer:
+  import_preset: default
+  patterns:
+    punct: '^/([0-9]0?|[A-Za-z]+)$'
+    reverse_lookup: "^z[a-z]*'?$"

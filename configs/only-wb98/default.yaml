@@ -1,0 +1,80 @@
+# Rime settings
+# encoding: utf-8
+
+config_version: '2026.1'
+
+schema_list:
+  - {schema: wubi}
+  - {schema: pinyin}
+
+switcher:
+  caption: 〈菜单项〉
+  hotkeys:
+    # - Control+grave
+    # - Control+Shift+asciitilde
+    - "Control+0"
+  save_options:
+    - full_shape
+    - ascii_punct
+    - simplification
+    - extended_charset
+    - zh_hant
+    - zh_hans
+    - zh_hant_tw
+  fold_options: true
+  abbreviate_options: true
+  option_list_separator: '／'
+
+punctuator:
+  full_shape:
+    __include: punctuation:/full_shape
+  half_shape:
+    __include: punctuation:/half_shape
+
+key_binder:
+  bindings:
+    # emacs key bindings
+    - { when: composing, accept: Control+p, send: Up }
+    - { when: composing, accept: Control+n, send: Down }
+    - { when: composing, accept: Control+b, send: Left }
+    - { when: composing, accept: Control+f, send: Right }
+    - { when: composing, accept: Control+a, send: Home }
+    - { when: composing, accept: Control+e, send: End }
+    - { when: composing, accept: Control+d, send: Delete }
+    - { when: composing, accept: Control+k, send: Shift+Delete }
+    - { when: composing, accept: Control+h, send: BackSpace }
+    - { when: composing, accept: Control+g, send: Escape }
+    - { when: composing, accept: Control+bracketleft, send: Escape }
+    - { when: composing, accept: Alt+v, send: Page_Up }
+    - { when: composing, accept: Control+v, send: Page_Down }
+
+    # 使用 [] 上下翻页
+    - { when: has_menu, accept: bracketleft, send: Page_Up }
+    - { when: has_menu, accept: bracketright, send: Page_Down }
+    # 候选2 用逗号选择
+    - { when: has_menu, accept: comma, send: 2 }
+    # 候选3 用句号选择
+    - { when: has_menu, accept: period, send: 3 }
+
+    # 中英文标点切换
+    - { when: always, accept: Control+Alt+period, toggle: ascii_punct }
+
+recognizer:
+  patterns:
+    email: "^[A-Za-z][-_.0-9A-Za-z]*@.*$"
+    uppercase: "[A-Z][-_+.'0-9A-Za-z]*$"
+    url: "^(www[.]|https?:|ftp[.:]|mailto:|file:).*$|^[a-z]+[.].+$"
+
+ascii_composer:
+  good_old_caps_lock: true
+  switch_key:
+    Shift_L: commit_code
+    Shift_R: commit_code
+    Control_L: noop
+    Control_R: noop
+    Caps_Lock: clear
+    Eisu_toggle: clear
+
+menu:
+  page_size: 5
+  alternative_select_labels: [ ㊀, ㊁, ㊂, ㊃, ㊄, ㊅, ㊆, ㊇, ㊈, ㊉ ]
