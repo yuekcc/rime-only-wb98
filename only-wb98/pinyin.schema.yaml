@@ -10,9 +10,10 @@ schema:
   full_icon: icons/full.ico
   half_icon: icons/half.ico
   author:
-    - 佚名
+    - Dvel
   description: |
-    源自 Android 拼音
+    源自雾凇拼音
+    https://github.com/iDvel/rime-ice
   dependencies:
   # 没有依赖
 
@@ -59,7 +60,8 @@ engine:
     - uniquifier
 
 speller:
-  alphabet: zyxwvutsrqponmlkjihgfedcba
+  alphabet: zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA`
+  initials: zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA
   delimiter: " '"
   algebra:
     - abbrev/^([a-z]).+$/$1/
@@ -77,6 +79,11 @@ speller:
 
 translator:
   dictionary: pinyin
+  enable_word_completion: true
+  always_show_comments: true
+  spelling_hints: 8
+  comment_format: {comment}
+  initial_quality: 1.2
   preedit_format:
     - xform/([nl])v/$1ü/
     - xform/([nl])ue/$1üe/
