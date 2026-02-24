@@ -12,7 +12,7 @@ schema:
   author:
     - 发明人 王永民先生
   description: |
-    98版五笔输入法方案。敲 z 键进入临时拼音
+    98 版五笔输入法方案。敲 z 键进入临时拼音
   dependencies:
     - pinyin
 
@@ -50,6 +50,7 @@ engine:
   segmentors:
     - ascii_segmentor
     - matcher
+    - affix_segmentor@tmp_pinyin
     - abc_segmentor
     - punct_segmentor
     - fallback_segmentor
@@ -58,6 +59,7 @@ engine:
   translators:
     - punct_translator
     - reverse_lookup_translator
+    # - table_translator@pinyin_translator
     - table_translator
     - lua_translator@*date_time_translator
     - history_translator@last_input
@@ -76,6 +78,7 @@ speller:
   initials: ;zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA` # 首字母
   auto_select_pattern: ^;.$|^\w{4}$ # 自动选择模式
   algebra: # 万能z键拼写处理，z符号匹配任意字符
+    - erase/^z/
     - derive/^(...).$/$1z/ # 三码后z匹配一码
     - derive/^(..).(.*)$/$1z$2/ # 两码后z匹配剩余
     - derive/^(.).(.*)$/$1z$2/ # 一码后z匹配剩余
@@ -108,6 +111,9 @@ translator:
 
 # 拼音反查配置 (Z键触发)
 reverse_lookup:
+  tag: tmp_pinyin
+  prefix: z
+  tips: '〈拼音反查〉'
   db_class: tabledb
   dictionary: pinyin
   enable_charset_filter: false
@@ -116,17 +122,37 @@ reverse_lookup:
   enable_sentence: false
   enable_user_dict: false
   encode_commit_history: false
-  initial_quality: 100000
-  max_phrase_length: 4
+  initial_quality: 1.2
   preedit_format:
-    - 'xform/([nl])v/$1ü/'
-    - 'xform/([nl])ue/$1üe/'
-    - 'xform/([jqxy])v/$1u/'
-  prefix: z
-  tag: tmp_pinyin
-  tips: '〈拼音反查〉'
+    - xform/([nl])v/$1ü/
+    - xform/([nl])ue/$1üe/
+    - xform/([jqxy])v/$1u/
   disable_user_dict_for_patterns:
     - '^z.*$'
+
+# pinyin_translator:
+#   # tag: tmp_pinyin
+#   # prefix: 'z'
+#   # tips: '〈临时拼音〉'
+#   extra_tags:
+#     - tmp_pinyin
+#   db_class: tabledb
+#   dictionary: pinyin
+#   enable_charset_filter: false
+#   enable_completion: true
+#   enable_encoder: false
+#   enable_sentence: false
+#   enable_user_dict: false
+#   encode_commit_history: false
+#   enable_word_completion: true
+#   spelling_hints: 8
+#   initial_quality: 1.2
+#   preedit_format:
+#     - xform/([nl])v/$1ü/
+#     - xform/([nl])ue/$1üe/
+#     - xform/([jqxy])v/$1u/
+#   disable_user_dict_for_patterns:
+#     - '^z.*$'
 
 # 简繁体转换配置
 simplifier:
@@ -137,11 +163,10 @@ simplifier:
 recognizer:
   import_preset: default
   patterns:
-    email: '^[A-Za-z][-_.0-9A-Za-z]*@.*$' # 邮箱识别
-    punct: '^/([0-9]0?|[A-Za-z]+)$' # 标点模式
-    tmp_pinyin: '^z[a-z]*$' # Z键拼音反查模式
     uppercase: "[A-Z][-_+.'0-9A-Za-z]*$" # 大写字母
     url: '^(www[.]|https?:|ftp[.:]|mailto:|file:).*$|^[a-z]+[.].+$' # URL识别
+    email: '^[A-Za-z][-_.0-9A-Za-z]*@.*$' # 邮箱识别
+    tmp_pinyin: '^z[a-z]*$' # 临时拼音
 
 # 历史记录配置
 last_input:
