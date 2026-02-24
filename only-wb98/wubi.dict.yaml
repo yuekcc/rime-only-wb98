@@ -3,7 +3,7 @@
 
 ---
 name: wubi
-version: "2026.1"
+version: '2026.1'
 sort: by_weight
 columns:
   - text
@@ -15,11 +15,11 @@ encoder:
     - '^z.*$'
   rules:
     - length_equal: 2
-      formula: "AaAbBaBb"
+      formula: 'AaAbBaBb'
     - length_equal: 3
-      formula: "AaBaCaCb"
+      formula: 'AaBaCaCb'
     - length_in_range: [4, 32]
-      formula: "AaBaCaZa"
+      formula: 'AaBaCaZa'
 ...
 工	a	842	aaaa
 戈	a	619	agny

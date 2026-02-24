@@ -1,6 +1,4 @@
-
 function date_time_translator(input, seg)
-
     -- 日期格式说明：
 
     -- %a	abbreviated weekday name (e.g., Wed)

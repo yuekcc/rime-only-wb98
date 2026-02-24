@@ -4,15 +4,15 @@
 config_version: '2026.1'
 
 schema_list:
-  - {schema: wubi}
-  - {schema: pinyin}
+  - { schema: wubi }
+  - { schema: pinyin }
 
 switcher:
   caption: 〈菜单项〉
   hotkeys:
     # - Control+grave
     # - Control+Shift+asciitilde
-    - "Control+0"
+    - 'Control+0'
   save_options:
     - full_shape
     - ascii_punct
@@ -61,9 +61,9 @@ key_binder:
 
 recognizer:
   patterns:
-    email: "^[A-Za-z][-_.0-9A-Za-z]*@.*$"
+    email: '^[A-Za-z][-_.0-9A-Za-z]*@.*$'
     uppercase: "[A-Z][-_+.'0-9A-Za-z]*$"
-    url: "^(www[.]|https?:|ftp[.:]|mailto:|file:).*$|^[a-z]+[.].+$"
+    url: '^(www[.]|https?:|ftp[.:]|mailto:|file:).*$|^[a-z]+[.].+$'
 
 ascii_composer:
   good_old_caps_lock: true
@@ -77,4 +77,4 @@ ascii_composer:
 
 menu:
   page_size: 5
-  alternative_select_labels: [ ㊀, ㊁, ㊂, ㊃, ㊄, ㊅, ㊆, ㊇, ㊈, ㊉ ]
+  alternative_select_labels: [㊀, ㊁, ㊂, ㊃, ㊄, ㊅, ㊆, ㊇, ㊈, ㊉]

@@ -3,7 +3,7 @@
 
 ---
 name: wubi.extended
-version: "2026.1"
+version: '2026.1'
 sort: by_weight
 import_tables:
   - wubi
@@ -18,13 +18,12 @@ encoder:
     - '^z.*$'
   rules:
     - length_equal: 2
-      formula: "AaAbBaBb"
+      formula: 'AaAbBaBb'
     - length_equal: 3
-      formula: "AaBaCaCb"
+      formula: 'AaBaCaCb'
     - length_in_range: [4, 90]
-      formula: "AaBaCaZa"
+      formula: 'AaBaCaZa'
 ...
-
 # ＊备注：
 # 本扩展词库文件是一个范例，用户在使用的时候最好复制一份，并重命名后使用
 # 因为在主方案更新时，会将此文件覆盖，否则用户在更新时需要提前将此文件备份
