@@ -34,8 +34,17 @@ end
 
 function M.func(input, seg, _)
 	if input == M.keyword then
-		yield_cand(seg, generate_uuid_v4())
+		yield(Candidate("uuid", seg.start, seg._end, generate_uuid_v4(), ""))
 	end
 end
 
-return M
+function uuid_translator(input, seg, env)
+	if not M.initialized then
+        M.init(env)
+        M.initialized = true
+    end
+
+	M.func(input, seg, env)
+end
+
+return uuid_translator

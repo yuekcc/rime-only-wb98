@@ -63,6 +63,7 @@ engine:
     - table_translator
     - lua_translator@*date_time_translator
     - lua_translator@*uuid_translator
+    - lua_translator@*force_gc
     - history_translator@last_input
   # 过滤器：对候选词进行处理
   filters:
