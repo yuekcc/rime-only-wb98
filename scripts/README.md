@@ -1,6 +1,10 @@
-# 使用
+# 权重数据更新脚本
 
-1. 先从 [https://github.com/amzxyz/RIME-LMDG](https://github.com/amzxyz/RIME-LMDG) 项目下载最新的 `dicts.zip`
+[RIME-LMDG](https://github.com/amzxyz/RIME-LMDG)是一个基于32GB中文语料数据统计出的词频的词库。通过这个脚本可以集成RIME-LMDG的词频数据。
+
+## 使用
+
+1. 先从 [RIME-LMDG](https://github.com/amzxyz/RIME-LMDG) 项目下载最新的 `dicts.zip`
 2. 解压到 `<repo-root>/scripts/dicts`
 3. 复制 `<repo-root>/configs/**/wubi.dict.yaml` 到 `<repo-root>/scripts/wubi.dict.yaml`
 

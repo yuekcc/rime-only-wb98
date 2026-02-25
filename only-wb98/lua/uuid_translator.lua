@@ -1,3 +1,6 @@
+-- 来源：https://github.com/iDvel/rime-ice/blob/main/lua/uuid.lua
+-- 有少量修改
+
 local fmt = string.format
 local rand = math.random
 local randomseed = math.randomseed
@@ -28,7 +31,6 @@ local M = {}
 
 function M.init(env)
 	randomseed(math.floor(os.time() + os.clock() * 1000))
-	-- M.uuid = env.engine.schema.config:get_string(env.name_space:gsub("^*", "")) or "uuid"
 	M.keyword = "uuid"
 end
 

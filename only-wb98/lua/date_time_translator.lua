@@ -1,3 +1,5 @@
+--来源：https://github.com/KyleBing/rime-wubi86-jidian/blob/master/lua/wubi86_jidian_date_translator.lua
+
 function date_time_translator(input, seg)
     -- 日期格式说明：
 
