@@ -3,8 +3,8 @@
 
 schema:
   schema_id: wubi
-  name: '五笔'
-  version: '2026.1'
+  name: "五笔"
+  version: "2026.1"
   icon: icons/CN.ico
   ascii_icon: icons/EN.ico
   full_icon: icons/full.ico
@@ -74,7 +74,7 @@ engine:
 speller:
   auto_select: false # 是否自动选择
   auto_clear: max_length # 自动清除编码
-  delimiter: '`' # 分隔符
+  delimiter: "`" # 分隔符
   max_code_length: 4 # 最大编码长度 (五笔)
   alphabet: ;zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA` # 字母表
   initials: ;zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA` # 首字母
@@ -99,23 +99,21 @@ translator:
   max_phrase_length: 4
   # 提前显示尚未输入完整码的字
   enable_completion: true
-  # preedit_format:
-  #   - 'xform/^([a-z]*)$/$1\t〈\U$1\E〉/'  # 注释掉本行将只显示键名提示而不显示英文编码提示
-  #   - "xlit|ABCDEFGHIJKLMNOPQRSTUVWXY|工子又大月土王目水日口田山已火之金白木禾立女人幺言|"
-  disable_user_dict_for_patterns:
-    - '^z.*$' # 禁用Z键的用户词典
   # 是否开启自动造词。需要启用自动造词，需要同时将 enable_encoder、enable_sentence、enable_user_dict 设置为 true
   enable_encoder: false
   # 是否开启自动造句
   enable_sentence: false
   # 是否开启用户词典（用户词典记录动态字词频、用户词）
-  enable_user_dict: false
+  enable_user_dict: true
+  # 禁用Z键的用户词典
+  disable_user_dict_for_patterns:
+    - "^z.*$"
 
 # 拼音反查配置 (Z键触发)
 reverse_lookup:
   tag: tmp_pinyin
   prefix: z
-  tips: '〈拼音反查〉'
+  tips: "〈拼音反查〉"
   db_class: tabledb
   dictionary: pinyin
   enable_charset_filter: false
@@ -130,7 +128,7 @@ reverse_lookup:
     - xform/([nl])ue/$1üe/
     - xform/([jqxy])v/$1u/
   disable_user_dict_for_patterns:
-    - '^z.*$'
+    - "^z.*$"
 
 # pinyin_translator:
 #   # tag: tmp_pinyin
@@ -166,9 +164,9 @@ recognizer:
   import_preset: default
   patterns:
     uppercase: "[A-Z][-_+.'0-9A-Za-z]*$" # 大写字母
-    url: '^(www[.]|https?:|ftp[.:]|mailto:|file:).*$|^[a-z]+[.].+$' # URL识别
-    email: '^[A-Za-z][-_.0-9A-Za-z]*@.*$' # 邮箱识别
-    tmp_pinyin: '^z[a-z]*$' # 临时拼音
+    url: "^(www[.]|https?:|ftp[.:]|mailto:|file:).*$|^[a-z]+[.].+$" # URL识别
+    email: "^[A-Za-z][-_.0-9A-Za-z]*@.*$" # 邮箱识别
+    tmp_pinyin: "^z[a-z]*$" # 临时拼音
 
 # 历史记录配置
 last_input:
