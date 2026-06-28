@@ -1,0 +1,1 @@
+node update-wb98-weight.ts --db dict.db --targetDictYaml testdata/wubi98.dict.yaml
