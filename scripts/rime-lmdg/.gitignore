@@ -1,3 +1,6 @@
 *.db
 out.yaml
 wubi.dict.yaml
+
+dicts/*.yaml
+out.dict.yaml
