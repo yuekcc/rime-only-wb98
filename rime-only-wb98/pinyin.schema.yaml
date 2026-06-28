@@ -10,10 +10,10 @@ schema:
   full_icon: icons/full.ico
   half_icon: icons/half.ico
   author:
-    - Dvel
+    - Android open source project
   description: |
-    源自雾凇拼音
-    https://github.com/iDvel/rime-ice
+    A minimal Pinyin dictionary for simplified Chinese script
+    Derived from android open source project
   dependencies:
   # 没有依赖
 
