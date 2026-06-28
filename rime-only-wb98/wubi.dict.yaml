@@ -3,7 +3,7 @@
 
 ---
 name: wubi
-version: '2026.1'
+version: '2026.2'
 sort: by_weight
 columns:
   - text
