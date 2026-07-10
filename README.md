@@ -44,7 +44,7 @@ rime-only-wb98，一个自用的 RIME 输入法配置：
 ## 词库及权重数据源
 
 - 98 五笔词库：[空山明月的 rime-wubi](https://github.com/myshiqiqi/rime-wubi)
-- 拼音词库：[明月拼音](https://github.com/myshiqiqi/rime-wubi/blob/master/luna_pinyin.dict.yaml)
+- 拼音词库：[袖珍简化字拼音](https://github.com/rime/rime-pinyin-simp/tree/master)@Apache-2.0
 - 权重数据：[白霜拼音](https://github.com/gaboolic/rime-frost)@GPL3.0，[RIME-LMDB](https://github.com/amzxyz/RIME-LMDG)@CC-BY-4.0
 
 ## LICENSE
