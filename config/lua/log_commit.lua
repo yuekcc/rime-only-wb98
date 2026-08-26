@@ -7,22 +7,11 @@ end
 
 local LOG_PATH = get_user_home() .. "/rime_words.txt"
 
-local f = nil
-
-function open_log_file()
-    if not f then
-        f = io.open(LOG_PATH, "a")
-        if f then
-            f:setvbuf("line")
-        end
-    end
-    return f
-end
-
 function write_log(text)
-    local log = open_log_file()
-    if log then
-        log:write(text, "\n")
+    local f = io.open(LOG_PATH, "a")
+    if f then
+        f:write(text, "\n")
+        f:close()
     end
 end
 
