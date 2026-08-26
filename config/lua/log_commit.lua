@@ -5,8 +5,7 @@ local function get_user_home()
     return home or "."
 end
 
-local LOG_DIR = get_user_home() .. "/.config/rime"
-local LOG_PATH = LOG_DIR .. "/words.txt"
+local LOG_PATH = get_user_home() .. "/rime_words.txt"
 
 local f = nil
 
