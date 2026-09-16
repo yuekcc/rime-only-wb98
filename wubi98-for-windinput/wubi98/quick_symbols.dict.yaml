@@ -1,0 +1,29 @@
+# Rime dictionary
+# encoding: utf-8
+#
+---
+name: quick_symbols
+version: "2026-09-16"
+columns:
+  - code
+  - text
+  - weight
+...
+;	；	100
+;l	“	100
+;r	”	100
+;d	・	100
+;au	↑	100
+;ad	↓	100
+;al	←	100
+;ar	→	100
+;a	→	100
+;c	§	100
+;la	「	100
+;rb	」	100
+;la	〔	100
+;rb	〕	100
+;la	（	100
+;lb	）	100
+;lg	《	100
+;rb	》	100
