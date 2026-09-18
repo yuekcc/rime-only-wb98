@@ -3,27 +3,24 @@
 #
 ---
 name: quick_symbols
-version: "2026-09-16"
+version: "2026-09-18"
 columns:
   - text
   - code
   - weight
 ...
-；	;	100
-“	;l	100
-”	;r	100
-・	;d	100
-↑	;au	100
-↓	;ad	100
-←	;al	100
-→	;ar	100
-→	;a	100
-§	;c	100
-「	;la	100
-」	;rb	100
-〔	;la	100
-〕	;rb	100
-（	;la	100
-）	;lb	100
-《	;lg	100
-》	;rb	100
+；	wvkg	100
+“	xhkg	100
+”	xhkg	100
+・	hko	100
+↑	tuud	100
+↓	tuud	100
+←	tuud	100
+→	tuud	100
+§	ujab	100
+「	rtkg	100
+」	rtkg	100
+（	rtkg	100
+）	rtkg	100
+《	nqkg	100
+》	nqkg	100
