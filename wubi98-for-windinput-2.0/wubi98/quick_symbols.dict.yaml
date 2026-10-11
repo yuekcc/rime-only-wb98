@@ -1,0 +1,26 @@
+# Rime dictionary
+# encoding: utf-8
+#
+---
+name: quick_symbols
+version: "2026-09-29"
+columns:
+  - text
+  - code
+  - weight
+...
+；	wvkg	100 # 分号
+“	xhkg	100 # 引号
+”	xhkg	100 # 引号
+・	hko	100 # 点
+→	tuud	100 # 箭头
+↓	tuud	100 # 箭头
+←	tuud	100 # 箭头
+↑	tuud	100 # 箭头
+§	ujab	100 # 章节
+「	rtkg	100 # 括号
+」	rtkg	100 # 括号
+（	rtkg	100 # 括号
+）	rtkg	100 # 括号
+《	nqkg	100 # 书名号
+》	nqkg	100 # 书名号
